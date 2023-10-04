@@ -22,4 +22,17 @@ int main() {
         printf("FMOD error! (%d) %s\n", fm_result, FMOD_ErrorString(fm_result));
         exit(-1);
     }
+
+    FMOD::Sound* sound;
+    fm_result = fm_system->createSound("Resources/Sounds/swoosh.mp3", FMOD_DEFAULT, 0, &sound);
+
+    FMOD::Channel* channel = nullptr;
+    fm_result = fm_system->playSound(sound, 0, false, &channel);
+
+    while (true) {
+        fm_system->update();
+    }
+
+    sound->release();
+    fm_system->release();
 }

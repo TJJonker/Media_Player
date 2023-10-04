@@ -19,4 +19,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resources\Sounds\swoosh.mp3" />
+  </ItemGroup>
 </Project>

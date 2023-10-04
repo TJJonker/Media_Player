@@ -58,6 +58,9 @@
   <ItemGroup>
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resources\Sounds\swoosh.mp3" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
