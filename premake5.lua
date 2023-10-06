@@ -9,6 +9,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 includeDirs = {}
 includeDirs["FMOD"] = "%{prj.name}/vendor/FMOD/include"
+includeDirs["SPDLOG"] = "%{prj.name}/vendor/spdlog/include"
 
 project "Media_Player"
 	location "Media_Player"
@@ -18,8 +19,8 @@ project "Media_Player"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	-- pchheader "pch.h"
-	-- pchsource "%{prj.name}/src/pch.cpp" 
+	pchheader "pch.h"
+	pchsource "%{prj.name}/src/pch.cpp" 
 
 	files {
 		"%{prj.name}/src/**.h",
@@ -28,7 +29,8 @@ project "Media_Player"
 
 	includedirs {
 		"%{prj.name}/src",
-		"%{includeDirs.FMOD}"
+		"%{includeDirs.FMOD}",
+		"%{includeDirs.SPDLOG}"
 	}
 
 	libdirs {
@@ -50,8 +52,6 @@ project "Media_Player"
 
 		postbuildcommands {
 			('{COPY} "../Media_Player/vendor/FMOD/lib/fmod.dll" "../bin/Debug-windows-x86_64/Media_Player"')
-			--("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-			--('{COPY} "Media_Player/vendor/FMOD/lib/fmod.dll" "bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/Media_Player')
 		}
 
 	filter "configurations:Debug"

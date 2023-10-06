@@ -1,38 +1,28 @@
-#include <fmod.hpp>
-#include <fmod_errors.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "pch.h"
+#include <AudioManager/AudioManager.h>
+#include <AudioManager/AudioLibrary.h>
+#include <AudioManager/AudioPlayer.h>
+#include <ObjectPooling/Pool.h>
+#include <AudioManager/Channel.h>
 
 
 int main() {
-    FMOD_RESULT fm_result;
-    FMOD::System* fm_system;
-    fm_result = FMOD::System_Create(&fm_system);        // Create the main system object.
+    TwoTune::Log::Init();
+    TwoTune::AudioManager audioManager;
+    TwoTune::AudioLibrary audioLibrary(audioManager.GetSystem());
+    TwoTune::AudioPlayer audioPlayer(audioManager.GetSystem());
 
-    if (fm_result != FMOD_OK)
-    {
-        printf("FMOD error! (%d) %s\n", fm_result, FMOD_ErrorString(fm_result));
-        exit(-1);
-    }
+    TwoTune::Pool<TwoTune::Channel> pool(audioManager.GetMaxChannels());
+    TwoTune::Channel* channel = pool.Get();
+    
+    audioLibrary.LoadAudio("Resources/Sounds/swoosh.mp3", "Swoosh");
+    FMOD::Sound* sound = audioLibrary.GetAudio("Swoosh");
 
-    fm_result = fm_system->init(100, FMOD_INIT_NORMAL, 0);  // Initialize FMOD.
-
-    if (fm_result != FMOD_OK)
-    {
-        printf("FMOD error! (%d) %s\n", fm_result, FMOD_ErrorString(fm_result));
-        exit(-1);
-    }
-
-    FMOD::Sound* sound;
-    fm_result = fm_system->createSound("Resources/Sounds/swoosh.mp3", FMOD_DEFAULT, 0, &sound);
-
-    FMOD::Channel* channel = nullptr;
-    fm_result = fm_system->playSound(sound, 0, false, &channel);
+    audioPlayer.Play(sound, channel);
 
     while (true) {
-        fm_system->update();
-    }
+        audioManager.Update();
 
-    sound->release();
-    fm_system->release();
+        
+    }
 }
