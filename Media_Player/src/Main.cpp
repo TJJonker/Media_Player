@@ -4,6 +4,7 @@
 #include <AudioManager/AudioPlayer.h>
 #include <ObjectPooling/Pool.h>
 #include <AudioManager/Channel.h>
+#include <GLFW/glfw3.h>
 
 
 int main() {
@@ -22,7 +23,5 @@ int main() {
 
     while (true) {
         audioManager.Update();
-
-        
     }
 }

@@ -7,9 +7,24 @@
     <Filter Include="Debug">
       <UniqueIdentifier>{0C95060D-78A9-2EBE-412B-D21DADFE2AEF}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ObjectPooling">
+      <UniqueIdentifier>{94BB30AC-007C-ACE2-C9B6-F55F3536F1BE}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\AudioManager\AudioLibrary.h">
+      <Filter>AudioManager</Filter>
+    </ClInclude>
     <ClInclude Include="src\AudioManager\AudioManager.h">
+      <Filter>AudioManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AudioManager\AudioManipulator.h">
+      <Filter>AudioManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AudioManager\AudioPlayer.h">
+      <Filter>AudioManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AudioManager\Channel.h">
       <Filter>AudioManager</Filter>
     </ClInclude>
     <ClInclude Include="src\Debug\Assertion.h">
@@ -21,16 +36,28 @@
     <ClInclude Include="src\Debug\Log.h">
       <Filter>Debug</Filter>
     </ClInclude>
+    <ClInclude Include="src\ObjectPooling\Pool.h">
+      <Filter>ObjectPooling</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ObjectPooling\PoolObject.h">
+      <Filter>ObjectPooling</Filter>
+    </ClInclude>
     <ClInclude Include="src\pch.h" />
-    <ClInclude Include="src\AudioManager\AudioLibrary.h" />
-    <ClInclude Include="src\AudioManager\AudioPlayer.h" />
-    <ClInclude Include="src\AudioManager\AudioManipulator.h" />
-    <ClInclude Include="src\ObjectPooling\Pool.h" />
-    <ClInclude Include="src\AudioManager\Channel.h" />
-    <ClInclude Include="src\ObjectPooling\PoolObject.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\AudioManager\AudioLibrary.cpp">
+      <Filter>AudioManager</Filter>
+    </ClCompile>
     <ClCompile Include="src\AudioManager\AudioManager.cpp">
+      <Filter>AudioManager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AudioManager\AudioManipulator.cpp">
+      <Filter>AudioManager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AudioManager\AudioPlayer.cpp">
+      <Filter>AudioManager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AudioManager\Channel.cpp">
       <Filter>AudioManager</Filter>
     </ClCompile>
     <ClCompile Include="src\Debug\FMODErrorLog.cpp">
@@ -41,9 +68,5 @@
     </ClCompile>
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\pch.cpp" />
-    <ClCompile Include="src\AudioManager\AudioLibrary.cpp" />
-    <ClCompile Include="src\AudioManager\AudioPlayer.cpp" />
-    <ClCompile Include="src\AudioManager\AudioManipulator.cpp" />
-    <ClCompile Include="src\AudioManager\Channel.cpp" />
   </ItemGroup>
 </Project>

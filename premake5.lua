@@ -10,6 +10,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 includeDirs = {}
 includeDirs["FMOD"] = "%{prj.name}/vendor/FMOD/include"
 includeDirs["SPDLOG"] = "%{prj.name}/vendor/spdlog/include"
+includeDirs["GLFW"] = "%{prj.name}/vendor/GLFW/include"
 
 project "Media_Player"
 	location "Media_Player"
@@ -30,16 +31,19 @@ project "Media_Player"
 	includedirs {
 		"%{prj.name}/src",
 		"%{includeDirs.FMOD}",
-		"%{includeDirs.SPDLOG}"
+		"%{includeDirs.SPDLOG}",
+		"%{includeDirs.GLFW}",
 	}
 
 	libdirs {
-		"%{prj.name}/vendor/FMOD/lib"
+		"%{prj.name}/vendor/FMOD/lib",
+		"%{prj.name}/vendor/GLFW/bin/Debug-windows-x86_64/GLFW"
 	}
 
 	links {
 		"fmod_vc.lib",
-		"fmodL_vc.lib"
+		"fmodL_vc.lib",
+		"GLFW"
 	}
 
 	filter "system:windows"
