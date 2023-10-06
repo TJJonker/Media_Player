@@ -11,6 +11,7 @@ includeDirs = {}
 includeDirs["FMOD"] = "%{prj.name}/vendor/FMOD/include"
 includeDirs["SPDLOG"] = "%{prj.name}/vendor/spdlog/include"
 includeDirs["GLFW"] = "%{prj.name}/vendor/GLFW/include"
+includeDirs["DearImGUI"] = "%{prj.name}/vendor/DearImGUI/include"
 
 project "Media_Player"
 	location "Media_Player"
@@ -33,6 +34,7 @@ project "Media_Player"
 		"%{includeDirs.FMOD}",
 		"%{includeDirs.SPDLOG}",
 		"%{includeDirs.GLFW}",
+		"%{includeDirs.DearImGUI}"
 	}
 
 	libdirs {
