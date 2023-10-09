@@ -11,7 +11,11 @@ includeDirs = {}
 includeDirs["FMOD"] = "%{prj.name}/vendor/FMOD/include"
 includeDirs["SPDLOG"] = "%{prj.name}/vendor/spdlog/include"
 includeDirs["GLFW"] = "%{prj.name}/vendor/GLFW/include"
+includeDirs["GLAD"] = "%{prj.name}/vendor/GLAD/include"
 includeDirs["DearImGUI"] = "%{prj.name}/vendor/DearImGUI/include"
+
+include "Media_Player/vendor/GLFW"
+include "Media_Player/vendor/GLAD"
 
 project "Media_Player"
 	location "Media_Player"
@@ -32,9 +36,11 @@ project "Media_Player"
 	includedirs {
 		"%{prj.name}/src",
 		"%{includeDirs.FMOD}",
+		"%{includeDirs.GLAD}",
 		"%{includeDirs.SPDLOG}",
 		"%{includeDirs.GLFW}",
-		"%{includeDirs.DearImGUI}"
+		"%{includeDirs.DearImGUI}",
+
 	}
 
 	libdirs {
@@ -45,7 +51,9 @@ project "Media_Player"
 	links {
 		"fmod_vc.lib",
 		"fmodL_vc.lib",
-		"GLFW"
+		"GLFW",
+		"opengl32",
+		"GLAD"
 	}
 
 	filter "system:windows"
