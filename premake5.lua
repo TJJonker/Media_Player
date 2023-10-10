@@ -12,7 +12,6 @@ includeDirs["FMOD"] = "%{prj.name}/vendor/FMOD/include"
 includeDirs["SPDLOG"] = "%{prj.name}/vendor/spdlog/include"
 includeDirs["GLFW"] = "%{prj.name}/vendor/GLFW/include"
 includeDirs["GLAD"] = "%{prj.name}/vendor/GLAD/include"
-includeDirs["DearImGUI"] = "%{prj.name}/vendor/DearImGUI/include"
 
 include "Media_Player/vendor/GLFW"
 include "Media_Player/vendor/GLAD"
@@ -39,7 +38,6 @@ project "Media_Player"
 		"%{includeDirs.GLAD}",
 		"%{includeDirs.SPDLOG}",
 		"%{includeDirs.GLFW}",
-		"%{includeDirs.DearImGUI}",
 
 	}
 

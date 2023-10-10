@@ -39,7 +39,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>src;vendor\FMOD\include;vendor\GLAD\include;vendor\spdlog\include;vendor\GLFW\include;vendor\DearImGUI\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\FMOD\include;vendor\GLAD\include;vendor\spdlog\include;vendor\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -57,6 +57,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\ImGuiRenderer.h" />
     <ClInclude Include="src\AudioManager\AudioLibrary.h" />
     <ClInclude Include="src\AudioManager\AudioManager.h" />
     <ClInclude Include="src\AudioManager\AudioManipulator.h" />
@@ -68,17 +69,18 @@
     <ClInclude Include="src\ObjectPooling\Pool.h" />
     <ClInclude Include="src\ObjectPooling\PoolObject.h" />
     <ClInclude Include="src\pch.h" />
-    <ClInclude Include="vendor\DearImGUI\include\ImGui\imconfig.h" />
-    <ClInclude Include="vendor\DearImGUI\include\ImGui\imgui.h" />
-    <ClInclude Include="vendor\DearImGUI\include\ImGui\imgui_impl_glfw.h" />
-    <ClInclude Include="vendor\DearImGUI\include\ImGui\imgui_impl_opengl3.h" />
-    <ClInclude Include="vendor\DearImGUI\include\ImGui\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="vendor\DearImGUI\include\ImGui\imgui_internal.h" />
-    <ClInclude Include="vendor\DearImGUI\include\ImGui\imstb_rectpack.h" />
-    <ClInclude Include="vendor\DearImGUI\include\ImGui\imstb_textedit.h" />
-    <ClInclude Include="vendor\DearImGUI\include\ImGui\imstb_truetype.h" />
+    <ClInclude Include="src\vendor\DearImGUI\imconfig.h" />
+    <ClInclude Include="src\vendor\DearImGUI\imgui.h" />
+    <ClInclude Include="src\vendor\DearImGUI\imgui_impl_glfw.h" />
+    <ClInclude Include="src\vendor\DearImGUI\imgui_impl_opengl3.h" />
+    <ClInclude Include="src\vendor\DearImGUI\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="src\vendor\DearImGUI\imgui_internal.h" />
+    <ClInclude Include="src\vendor\DearImGUI\imstb_rectpack.h" />
+    <ClInclude Include="src\vendor\DearImGUI\imstb_textedit.h" />
+    <ClInclude Include="src\vendor\DearImGUI\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ImGuiRenderer.cpp" />
     <ClCompile Include="src\AudioManager\AudioLibrary.cpp" />
     <ClCompile Include="src\AudioManager\AudioManager.cpp" />
     <ClCompile Include="src\AudioManager\AudioManipulator.cpp" />
@@ -90,13 +92,13 @@
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="vendor\DearImGUI\include\ImGui\imgui.cpp" />
-    <ClCompile Include="vendor\DearImGUI\include\ImGui\imgui_demo.cpp" />
-    <ClCompile Include="vendor\DearImGUI\include\ImGui\imgui_draw.cpp" />
-    <ClCompile Include="vendor\DearImGUI\include\ImGui\imgui_impl_glfw.cpp" />
-    <ClCompile Include="vendor\DearImGUI\include\ImGui\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="vendor\DearImGUI\include\ImGui\imgui_tables.cpp" />
-    <ClCompile Include="vendor\DearImGUI\include\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="src\vendor\DearImGUI\imgui.cpp" />
+    <ClCompile Include="src\vendor\DearImGUI\imgui_demo.cpp" />
+    <ClCompile Include="src\vendor\DearImGUI\imgui_draw.cpp" />
+    <ClCompile Include="src\vendor\DearImGUI\imgui_impl_glfw.cpp" />
+    <ClCompile Include="src\vendor\DearImGUI\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\vendor\DearImGUI\imgui_tables.cpp" />
+    <ClCompile Include="src\vendor\DearImGUI\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">

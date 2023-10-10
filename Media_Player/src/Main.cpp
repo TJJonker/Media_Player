@@ -1,11 +1,9 @@
 #include "pch.h"
-#include "ImGui/imgui.h"
-#include "ImGui/imgui_impl_glfw.h"
-#include "ImGui/imgui_impl_opengl3.h"
 
 #include<iostream>
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
+#include <ImGuiRenderer.h>
 
 
 int main()
@@ -17,7 +15,7 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Create a GLFWwindow object of 800 by 800 pixels, naming it "YoutubeOpenGL"
-	GLFWwindow* window = glfwCreateWindow(800, 800, "ImGui + GLFW", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(960, 540, "ImGui + GLFW", NULL, NULL);
 	// Error check if the window fails to create
 	if (window == NULL)
 	{
@@ -33,13 +31,7 @@ int main()
 	glViewport(0, 0, 800, 800);
 
 
-	// Initialize ImGUI
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	ImGui::StyleColorsDark();
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
-	ImGui_ImplOpenGL3_Init("#version 330");
+	ImGuiRenderer igRenderer(window);
 
 
 	// Main while loop
@@ -50,23 +42,9 @@ int main()
 		// Clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		// Tell OpenGL a new frame is about to begin
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
 
+		igRenderer.Render();
 
-		// ImGUI window creation
-		ImGui::Begin("My name is window, ImGUI window");
-		// Text that appears in the window
-		ImGui::Text("Hello there adventurer!");
-		// Checkbox that appears in the window
-		// Ends the window
-		ImGui::End();
-
-		// Renders the ImGUI elements
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
@@ -74,10 +52,7 @@ int main()
 		glfwPollEvents();
 	}
 
-	// Deletes all ImGUI instances
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
+
 
 	// Delete window before ending the program
 	glfwDestroyWindow(window);
