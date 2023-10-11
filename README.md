@@ -37,10 +37,10 @@ After the initialization, all the audio files are loaded into memory with the he
 
 Just before the GLFW window loop, the ImGui rendering class is initialized and provided with the necessary data. Inside the ImGuiRenderer class, we're drawing a hardcoded GUI, making changes to the Channel, and reading from a list of audio names that is provided by the audio library.
 
-Inside the GLFW window loop, we're checking if there are changes inside the channel struct and applying the forwarding the changes to the designated TwoTune module.
+Inside the GLFW window loop, we're checking if there are changes inside the channel struct and forwarding the changes to the designated TwoTune module.
 
 
 ### Evaluation
-I think the TwoTune API worked out decent. The GUI is what messed up a big part of the codebase. I wanted (and should have) abstracted the GUI into separate files, added an Event system, and ultimately added a small layer structure to keep things really clean. Same for the GLFW/GLAD Window part. This could've been extracted and abstracted, but I don't think reworking this would've been worth it, as this still is a Hello World project.
+I think the TwoTune API worked out decent. The GUI is what messed up a big part of the codebase. I wanted (and should have) abstracted the GUI into separate files, added an Event system, and ultimately added a small layer structure to keep things really clean. Not doing this, caused the Channel struct to be filled with nonsense and redundant data because the GUI can't properly communicate with the rest of the codebase. I also wanted to change the GLFW and GLAD initialization a bit. This could've been extracted and abstracted, but I don't think reworking this would've been worth it, as this still is a Hello World project.
 
 All in all, I'm happy with the result and I'll take everything I've learned with me to future projects.
