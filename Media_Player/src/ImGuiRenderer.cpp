@@ -19,41 +19,68 @@ void ImGuiRenderer::Render()
 {
 	Begin();
 
-	// Create a docking layout over the entire viewport
-	ImGuiID dockspace_id = ImGui::GetID("DockSpace");
 	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
+	//static bool open = true;
 
-	static bool oi = true;
-	if (oi) {
-		oi = false;
-		ImGui::DockBuilderRemoveNode(dockspace_id);
-		ImGui::DockBuilderAddNode(dockspace_id);
+	static const char* dockName = "De";
+	static bool thing = true;
+	//if (ImGui::DockBuilderGetNode(ImGui::GetID(dockName)) == NULL) {
+	if(thing){
+		thing = false;
+		ImGuiID dockspace_id = ImGui::GetID(dockName); 
+		ImGuiViewport* viewport = ImGui::GetMainViewport(); 
 
-		ImGuiID dock1 = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Left, 0.5f, nullptr, &dockspace_id);
-		ImGuiID dock2 = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Right, 0.5f, nullptr, &dockspace_id);
+		ImGui::DockBuilderRemoveNode(dockspace_id); 
+		ImGui::DockBuilderAddNode(dockspace_id, ImGuiDockNodeFlags_NoResize | ImGuiDockNodeFlags_NoUndocking); 
+		ImGui::DockBuilderSetNodeSize(dockspace_id, viewport->Size); 
 
-		ImGui::DockBuilderDockWindow("Interactive List", dock2);
+		ImGuiID dock_main = dockspace_id;
+		ImGuiID dock_left = ImGui::DockBuilderSplitNode(dock_main, ImGuiDir_Left, 0.3f, NULL, &dock_main);
+		ImGuiID dock_bottom = ImGui::DockBuilderSplitNode(dock_main, ImGuiDir_Down, 0.4f, NULL, &dock_main);
+
+		ImGui::DockBuilderDockWindow("Left", dock_left); 
+		ImGui::DockBuilderDockWindow("Main", dock_main);
+		ImGui::DockBuilderDockWindow("Bottom", dock_bottom);
 	}
 
-	ImGui::Begin("Interactive List");
-
-	// Create a scrollable area for the list
-	ImVec2 workSize = ImGui::GetMainViewport()->GetWorkCenter();
-	ImGui::BeginChild("List", ImVec2(200, workSize.y * 2), true);
-
-	// Define an array to store the state of each checkbox
-	static bool itemChecked[10] = { false };
-
-	// Add items to the list with checkboxes
-	for (int i = 0; i < 10; i++) {
-		ImGui::Checkbox(("Item " + std::to_string(i)).c_str(), &itemChecked[i]);
-	}
-
-	// End the scrollable area
-	ImGui::EndChild();
-
+	ImGui::Begin("Left");
+	ImGui::Text("Left");
 	ImGui::End();
 
+	ImGui::Begin("Main");
+	ImGui::Text("Main");
+	ImGui::End();
+
+	ImGui::Begin("Bottom");
+
+	if (ImGui::BeginTable("Manipulation", 2)) {
+		ImGui::TableNextRow(); 
+		ImGui::TableNextColumn();
+
+		// Vertical slider 1
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (ImGui::GetContentRegionAvail().x - 160) * 0.5f); // Center vertically
+		ImGui::Text("Volume");
+		int volume = 50;
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (ImGui::GetContentRegionAvail().x - 150) * 0.5f); // Center vertically
+		ImGui::VSliderInt("##Volume", ImVec2(30, 150), &volume, 0, 100, "%d");
+
+		ImGui::TableNextColumn();
+		
+		// Vertical slider 2
+		ImGui::Text("Pan");
+		float Pan = 0.f;
+		ImGui::SliderFloat("##Pan", &Pan, -1.0f, 1.0f, "%.2f");
+		
+		ImGui::Dummy(ImVec2(0, 30));
+
+		// Horizontal knob-style slider
+		ImGui::Text("Pitch");
+		float Pitch = 0.f;
+		ImGui::SliderFloat("##Pitch", &Pitch, -1.0f, 1.0f, "%.2f");
+
+		ImGui::EndTable();
+		ImGui::End();
+	}
 
 	End();
 }

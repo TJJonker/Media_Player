@@ -42,6 +42,7 @@
     <ClInclude Include="src\Debug\Log.h">
       <Filter>Debug</Filter>
     </ClInclude>
+    <ClInclude Include="src\ImGuiRenderer.h" />
     <ClInclude Include="src\ObjectPooling\Pool.h">
       <Filter>ObjectPooling</Filter>
     </ClInclude>
@@ -76,7 +77,6 @@
     <ClInclude Include="src\vendor\DearImGUI\imstb_truetype.h">
       <Filter>vendor\DearImGUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\ImGuiRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AudioManager\AudioLibrary.cpp">
@@ -100,6 +100,7 @@
     <ClCompile Include="src\Debug\Log.cpp">
       <Filter>Debug</Filter>
     </ClCompile>
+    <ClCompile Include="src\ImGuiRenderer.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\pch.cpp" />
     <ClCompile Include="src\vendor\DearImGUI\imgui.cpp">
@@ -123,6 +124,5 @@
     <ClCompile Include="src\vendor\DearImGUI\imgui_widgets.cpp">
       <Filter>vendor\DearImGUI</Filter>
     </ClCompile>
-    <ClCompile Include="src\ImGuiRenderer.cpp" />
   </ItemGroup>
 </Project>
