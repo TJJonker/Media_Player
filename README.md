@@ -39,6 +39,16 @@ Just before the GLFW window loop, the ImGui rendering class is initialized and p
 
 Inside the GLFW window loop, we're checking if there are changes inside the channel struct and forwarding the changes to the designated TwoTune module.
 
+Upon running the project, a GUI will open. the GUI is split into three separate parts:
+- **AudioFiles (left)**: This is an overview of all the files loaded into memory and saved in the audio library. Clicking one of these files will play the corresponding audio file.
+- **MediaPlayer (top)**: This is the media player. Here, you can check which audio file is playing, whether it's playing or stopped, stop the audio, or play/pause the audio.
+- **AudioManipulator (bottom)**: This is a control panel to change the volume, pitch, and pan of the played audio files.
+
+The TwoTune Channel will make sure all the properties (volume, pan, pitch, pause state) will be transferred to the next played audio (channel). So changing the pitch before clicking on a new audio file will also change the pitch on the new audio file. Pausing before clicking on a new audio file will pause the new audio file.
+
+### Known limitations
+- Audio files cannot loop or be replayed without clicking in the audio files menu.
+- GUI will not scale with the window when resizing. 
 
 ### Evaluation
 I think the TwoTune API worked out decent. The GUI is what messed up a big part of the codebase. I wanted (and should have) abstracted the GUI into separate files, added an Event system, and ultimately added a small layer structure to keep things really clean. Not doing this, caused the Channel struct to be filled with nonsense and redundant data because the GUI can't properly communicate with the rest of the codebase. I also wanted to change the GLFW and GLAD initialization a bit. This could've been extracted and abstracted, but I don't think reworking this would've been worth it, as this still is a Hello World project.
