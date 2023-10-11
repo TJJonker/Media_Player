@@ -48,6 +48,15 @@ namespace TwoTune {
 		return m_AudioLibrary[audioName];
 	}
 
+	std::shared_ptr<std::vector<const char*>> AudioLibrary::GetAllAudioNames()
+	{
+		std::vector<const char*> listOfNames;
+		for (std::map<const char*, FMOD::Sound*>::iterator it = m_AudioLibrary.begin(); it != m_AudioLibrary.end(); ++it) {
+			listOfNames.push_back(it->first);
+		}
+		return std::make_shared<std::vector<const char*>>(listOfNames);
+	}
+
 
 
 }

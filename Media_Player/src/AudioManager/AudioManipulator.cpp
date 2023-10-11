@@ -2,10 +2,16 @@
 #include "AudioManipulator.h"
 
 namespace TwoTune {
-
+	AudioManipulator::AudioManipulator()
+	{
+	}
+	AudioManipulator::~AudioManipulator()
+	{
+	}
 	void AudioManipulator::SetPitch(Channel* channel)
 	{
 		CHECK_NULL_LOG(channel, "Setting pitch");
+		CHECK_NULL_LOG(channel->FMODChannel, "Checking FMODChannel");
 		CHECK_ISPLAYING(channel->FMODChannel);
 
 		FMOD_RESULT result = channel->FMODChannel->setPitch(channel->Pitch); 
@@ -15,6 +21,7 @@ namespace TwoTune {
 	void AudioManipulator::SetVolume(Channel* channel)
 	{
 		CHECK_NULL_LOG(channel, "Setting volume");
+		CHECK_NULL_LOG(channel->FMODChannel, "Checking FMODChannel"); 
 		CHECK_ISPLAYING(channel->FMODChannel);
 
 		FMOD_RESULT result = channel->FMODChannel->setVolume(channel->Volume);
@@ -24,6 +31,7 @@ namespace TwoTune {
 	void AudioManipulator::SetPan(Channel* channel)
 	{
 		CHECK_NULL_LOG(channel, "Setting pan");
+		CHECK_NULL_LOG(channel->FMODChannel, "Checking FMODChannel"); 
 		CHECK_ISPLAYING(channel->FMODChannel);
 
 		FMOD_RESULT result = channel->FMODChannel->setVolume(channel->Pan);

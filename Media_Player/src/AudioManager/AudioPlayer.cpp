@@ -11,7 +11,10 @@ namespace TwoTune {
 	void AudioPlayer::Play(FMOD::Sound* sound, Channel* channel, FMOD::ChannelGroup* group, bool paused)
 	{
 		CHECK_NULL_LOG(sound, "play");
-		m_System->playSound(sound, group, paused, &channel->FMODChannel);
+		FMOD::Channel* channo;
+		FMOD_RESULT result = m_System->playSound(sound, group, paused, &channo);
+
+		CHECK_RESULT_LOG(result, "Playing sound");
 	}
 
 	void AudioPlayer::Stop(Channel* channel)

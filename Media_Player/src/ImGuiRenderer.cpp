@@ -20,11 +20,9 @@ void ImGuiRenderer::Render()
 	Begin();
 
 	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
-	//static bool open = true;
 
-	static const char* dockName = "De";
+	static const char* dockName = "Dock";
 	static bool thing = true;
-	//if (ImGui::DockBuilderGetNode(ImGui::GetID(dockName)) == NULL) {
 	if(thing){
 		thing = false;
 		ImGuiID dockspace_id = ImGui::GetID(dockName); 
@@ -35,7 +33,7 @@ void ImGuiRenderer::Render()
 		ImGui::DockBuilderSetNodeSize(dockspace_id, viewport->Size); 
 
 		ImGuiID dock_main = dockspace_id;
-		ImGuiID dock_left = ImGui::DockBuilderSplitNode(dock_main, ImGuiDir_Left, 0.3f, NULL, &dock_main);
+		ImGuiID dock_left = ImGui::DockBuilderSplitNode(dock_main, ImGuiDir_Left, 0.25f, NULL, &dock_main);
 		ImGuiID dock_bottom = ImGui::DockBuilderSplitNode(dock_main, ImGuiDir_Down, 0.4f, NULL, &dock_main);
 
 		ImGui::DockBuilderDockWindow("Left", dock_left); 
@@ -43,43 +41,64 @@ void ImGuiRenderer::Render()
 		ImGui::DockBuilderDockWindow("Bottom", dock_bottom);
 	}
 
-	ImGui::Begin("Left");
-	ImGui::Text("Left");
-	ImGui::End();
-
-	ImGui::Begin("Main");
-	ImGui::Text("Main");
-	ImGui::End();
-
-	ImGui::Begin("Bottom");
-
-	if (ImGui::BeginTable("Manipulation", 2)) {
-		ImGui::TableNextRow(); 
-		ImGui::TableNextColumn();
-
-		// Vertical slider 1
-		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (ImGui::GetContentRegionAvail().x - 160) * 0.5f); // Center vertically
-		ImGui::Text("Volume");
-		int volume = 50;
-		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (ImGui::GetContentRegionAvail().x - 150) * 0.5f); // Center vertically
-		ImGui::VSliderInt("##Volume", ImVec2(30, 150), &volume, 0, 100, "%d");
-
-		ImGui::TableNextColumn();
-		
-		// Vertical slider 2
-		ImGui::Text("Pan");
-		float Pan = 0.f;
-		ImGui::SliderFloat("##Pan", &Pan, -1.0f, 1.0f, "%.2f");
-		
-		ImGui::Dummy(ImVec2(0, 30));
-
-		// Horizontal knob-style slider
-		ImGui::Text("Pitch");
-		float Pitch = 0.f;
-		ImGui::SliderFloat("##Pitch", &Pitch, -1.0f, 1.0f, "%.2f");
-
-		ImGui::EndTable();
+	if (ImGui::Begin("Left")) {
+		for (unsigned int i = 0; i < m_ListOfAudioNames->size(); i++) {
+			if (ImGui::Button((*m_ListOfAudioNames)[i])) {
+				m_Channel->AudioName = (*m_ListOfAudioNames)[i];
+				m_Channel->PlayNewAudio = true;
+			}
+			ImGui::Spacing(); 
+		}
 		ImGui::End();
+	}
+
+	if (ImGui::Begin("Main")) {
+
+		ImGui::Dummy(ImVec2(0, 50));
+		const char* audioName = m_Channel->AudioName == "" ? "- Select an audiofile -" : m_Channel->AudioName;
+		ImVec2 textSize = ImGui::CalcTextSize(audioName);
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (ImGui::GetContentRegionAvail().x - textSize.x) * 0.5f); // Center vertically
+		ImGui::Text(audioName);
+		ImGui::Dummy(ImVec2(0, 100));
+
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (ImGui::GetContentRegionAvail().x - 350) * 0.5f); // Center vertically
+		if (ImGui::BeginTable("Controller", 2)) {
+			ImGui::TableNextRow();
+			ImGui::TableNextColumn();
+			ImGui::Button("Stop", ImVec2(100, 50));
+			ImGui::TableNextColumn();
+			ImGui::Button("Pause", ImVec2(100, 50));
+			ImGui::EndTable();
+		}
+		ImGui::End();
+	}
+	
+	if (ImGui::Begin("Bottom")) {
+		if (ImGui::BeginTable("Manipulation", 2)) {
+			ImGui::TableNextRow(); 
+			ImGui::TableNextColumn();
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (ImGui::GetContentRegionAvail().x - 160) * 0.5f); // Center vertically
+			ImGui::Text("Volume");
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (ImGui::GetContentRegionAvail().x - 150) * 0.5f); // Center vertically
+			if (ImGui::VSliderInt("##Volume", ImVec2(30, 150), &m_Channel->Volume, 0, 100, "%d"))
+				m_Channel->HasChanged = true;
+
+			ImGui::TableNextColumn();
+		
+			ImGui::Text("Pan");
+			if (ImGui::SliderFloat("##Pan", &m_Channel->Pan, -1.0f, 1.0f, "%.2f"))
+				m_Channel->HasChanged = true;
+		
+			ImGui::Dummy(ImVec2(0, 30));
+
+			ImGui::Text("Pitch");
+			if (ImGui::SliderFloat("##Pitch", &m_Channel->Pitch, -1.0f, 1.0f, "%.2f"))
+				m_Channel->HasChanged = true;
+
+			ImGui::EndTable();
+			ImGui::End();
+		}
 	}
 
 	End();
