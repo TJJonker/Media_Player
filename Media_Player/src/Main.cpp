@@ -3,7 +3,7 @@
 #include<iostream>
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
-#include <ImGuiRenderer.h>
+#include <GUI/ImGuiRenderer.h>
 #include <AudioManager/AudioManager.h>
 #include <AudioManager/AudioLibrary.h>
 #include <AudioManager/AudioPlayer.h>

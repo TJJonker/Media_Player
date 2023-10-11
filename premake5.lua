@@ -1,5 +1,6 @@
-workspace "Media_Player"
+workspace "Media_Player_Workspace"
 	architecture "x64"
+	startproject "Media_Player"
 
 	configurations {
 		"Debug"

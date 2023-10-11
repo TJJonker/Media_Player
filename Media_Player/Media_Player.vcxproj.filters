@@ -7,6 +7,9 @@
     <Filter Include="Debug">
       <UniqueIdentifier>{0C95060D-78A9-2EBE-412B-D21DADFE2AEF}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{2AEC870B-96F5-877C-1F71-9E7C8B79937C}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ObjectPooling">
       <UniqueIdentifier>{94BB30AC-007C-ACE2-C9B6-F55F3536F1BE}</UniqueIdentifier>
     </Filter>
@@ -42,7 +45,9 @@
     <ClInclude Include="src\Debug\Log.h">
       <Filter>Debug</Filter>
     </ClInclude>
-    <ClInclude Include="src\ImGuiRenderer.h" />
+    <ClInclude Include="src\GUI\ImGuiRenderer.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
     <ClInclude Include="src\ObjectPooling\Pool.h">
       <Filter>ObjectPooling</Filter>
     </ClInclude>
@@ -100,7 +105,9 @@
     <ClCompile Include="src\Debug\Log.cpp">
       <Filter>Debug</Filter>
     </ClCompile>
-    <ClCompile Include="src\ImGuiRenderer.cpp" />
+    <ClCompile Include="src\GUI\ImGuiRenderer.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\pch.cpp" />
     <ClCompile Include="src\vendor\DearImGUI\imgui.cpp">

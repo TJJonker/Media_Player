@@ -65,7 +65,7 @@
     <ClInclude Include="src\Debug\Assertion.h" />
     <ClInclude Include="src\Debug\FMODErrorLog.h" />
     <ClInclude Include="src\Debug\Log.h" />
-    <ClInclude Include="src\ImGuiRenderer.h" />
+    <ClInclude Include="src\GUI\ImGuiRenderer.h" />
     <ClInclude Include="src\ObjectPooling\Pool.h" />
     <ClInclude Include="src\ObjectPooling\PoolObject.h" />
     <ClInclude Include="src\pch.h" />
@@ -87,7 +87,7 @@
     <ClCompile Include="src\AudioManager\Channel.cpp" />
     <ClCompile Include="src\Debug\FMODErrorLog.cpp" />
     <ClCompile Include="src\Debug\Log.cpp" />
-    <ClCompile Include="src\ImGuiRenderer.cpp" />
+    <ClCompile Include="src\GUI\ImGuiRenderer.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
