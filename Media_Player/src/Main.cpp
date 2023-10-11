@@ -12,27 +12,21 @@
 
 int main()
 {
+	TwoTune::Log::Init();
+
 	TwoTune::AudioManager audioManager(100);
 	TwoTune::AudioLibrary audioLibrary(audioManager.GetSystem());
 	TwoTune::AudioPlayer audioPlayer(audioManager.GetSystem());
 	TwoTune::AudioManipulator audioManipulator;
 
-	FMOD::Sound* sound = audioLibrary.LoadAudio("Resources/Sounds/swoosh.mp3", "Swoosh");
-	audioLibrary.LoadAudio("Resources/Sounds/swoosh.mp3", "");
-	audioLibrary.LoadAudio("Resources/Sounds/swoosh.mp3", "Car");
-	audioLibrary.LoadAudio("Resources/Sounds/swoosh.mp3", "Gun");
-
-	FMOD_RESULT result;
-	FMOD::System* systom;
-	result = FMOD::System_Create(&systom);
-
-	result = systom->init(512, FMOD_INIT_NORMAL, 0);
+	audioLibrary.LoadAudio("Resources/Sounds/Swoosh.mp3", "Swoosh");
+	audioLibrary.LoadAudio("Resources/Sounds/Bullet.mp3", "Bullet");
+	audioLibrary.LoadAudio("Resources/Sounds/Bullet_impact.mp3", "Bullet impact");
+	audioLibrary.LoadAudio("Resources/Sounds/Car_driving_ambience.mp3", "Car ambience");
+	audioLibrary.LoadAudio("Resources/Sounds/Sci-fi_weapon_charging.mp3", "Sci-fi weapon charging");
+	audioLibrary.LoadAudio("Resources/Sounds/Alien_ship_landing.mp3", "Alien ship landing");
 
 	TwoTune::Channel channel;
-	FMOD::Channel* chinchan = nullptr;
-	systom->playSound(sound, 0, false, &chinchan);
-
-	//audioPlayer.Play(sound, &channel);
 
 
 	// Initialize GLFW
@@ -73,7 +67,9 @@ int main()
 
 		igRenderer.Render();
 
-		if (channel.HasChanged && channel.FMODChannel) {
+		//-------------------------------------------------- Check what er gebeurd met de FMOD Channel. Wellicht denkt ie dat the channel debiel doet... leuk!
+
+		if (channel.HasChanged) {
 			audioManipulator.SetVolume(&channel);
 			audioManipulator.SetPan(&channel);
 			audioManipulator.SetPitch(&channel);
@@ -84,10 +80,26 @@ int main()
 
 		if (channel.PlayNewAudio) {
 			FMOD::Sound* soundToPlay = audioLibrary.GetAudio(channel.AudioName);
+			
 			if (channel.FMODChannel)
 				audioPlayer.Stop(&channel);
+
 			audioPlayer.Play(soundToPlay, &channel);
 			channel.PlayNewAudio = false;
+
+			audioManipulator.SetVolume(&channel);
+			audioManipulator.SetPan(&channel);
+			audioManipulator.SetPitch(&channel);
+		}
+
+		if (channel.PauseChanged) {
+			channel.PauseChanged = false;
+			audioPlayer.SetPaused(&channel);
+		}
+
+		if (channel.ShouldStop) {
+			channel.ShouldStop = false;
+			audioPlayer.Stop(&channel);
 		}
 
 		// Swap the back buffer with the front buffer

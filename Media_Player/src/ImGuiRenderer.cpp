@@ -41,7 +41,9 @@ void ImGuiRenderer::Render()
 		ImGui::DockBuilderDockWindow("Bottom", dock_bottom);
 	}
 
-	if (ImGui::Begin("Left")) {
+	static bool open = true;
+
+	if (ImGui::Begin("Left", &open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize)) {
 		for (unsigned int i = 0; i < m_ListOfAudioNames->size(); i++) {
 			if (ImGui::Button((*m_ListOfAudioNames)[i])) {
 				m_Channel->AudioName = (*m_ListOfAudioNames)[i];
@@ -52,7 +54,7 @@ void ImGuiRenderer::Render()
 		ImGui::End();
 	}
 
-	if (ImGui::Begin("Main")) {
+	if (ImGui::Begin("Main", &open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize)) {
 
 		ImGui::Dummy(ImVec2(0, 50));
 		const char* audioName = m_Channel->AudioName == "" ? "- Select an audiofile -" : m_Channel->AudioName;
@@ -65,15 +67,21 @@ void ImGuiRenderer::Render()
 		if (ImGui::BeginTable("Controller", 2)) {
 			ImGui::TableNextRow();
 			ImGui::TableNextColumn();
-			ImGui::Button("Stop", ImVec2(100, 50));
+			if (ImGui::Button("Stop", ImVec2(100, 50))) {
+				m_Channel->ShouldStop = true;
+			}
 			ImGui::TableNextColumn();
-			ImGui::Button("Pause", ImVec2(100, 50));
+			const char* playPauseButtonText = m_Channel->IsPaused ? "Play" : "Pause";
+			if (ImGui::Button(playPauseButtonText, ImVec2(100, 50))) {
+				m_Channel->IsPaused = !m_Channel->IsPaused;
+				m_Channel->PauseChanged = true;
+			}
 			ImGui::EndTable();
 		}
 		ImGui::End();
 	}
 	
-	if (ImGui::Begin("Bottom")) {
+	if (ImGui::Begin("Bottom", &open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize)) {
 		if (ImGui::BeginTable("Manipulation", 2)) {
 			ImGui::TableNextRow(); 
 			ImGui::TableNextColumn();
@@ -93,7 +101,7 @@ void ImGuiRenderer::Render()
 			ImGui::Dummy(ImVec2(0, 30));
 
 			ImGui::Text("Pitch");
-			if (ImGui::SliderFloat("##Pitch", &m_Channel->Pitch, -1.0f, 1.0f, "%.2f"))
+			if (ImGui::SliderFloat("##Pitch", &m_Channel->Pitch, 0.0f, 5.0f, "%.2f"))
 				m_Channel->HasChanged = true;
 
 			ImGui::EndTable();

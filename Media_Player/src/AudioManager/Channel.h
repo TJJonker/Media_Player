@@ -16,6 +16,11 @@ namespace TwoTune {
 		bool HasChanged;
 		bool PlayNewAudio;
 
+		bool IsPaused;
+		bool PauseChanged;
+
+		bool ShouldStop;
+
 		Channel();
 		~Channel();
 

@@ -23,8 +23,7 @@ namespace TwoTune {
 		CHECK_NULL_LOG(channel, "Setting volume");
 		CHECK_NULL_LOG(channel->FMODChannel, "Checking FMODChannel"); 
 		CHECK_ISPLAYING(channel->FMODChannel);
-
-		FMOD_RESULT result = channel->FMODChannel->setVolume(channel->Volume);
+		FMOD_RESULT result = channel->FMODChannel->setVolume(channel->Volume / 100.0f);
 		CHECK_RESULT_LOG(result, "Setting volume");
 	}
 
@@ -34,7 +33,7 @@ namespace TwoTune {
 		CHECK_NULL_LOG(channel->FMODChannel, "Checking FMODChannel"); 
 		CHECK_ISPLAYING(channel->FMODChannel);
 
-		FMOD_RESULT result = channel->FMODChannel->setVolume(channel->Pan);
+		FMOD_RESULT result = channel->FMODChannel->setPan(channel->Pan);
 		CHECK_RESULT_LOG(result, "Setting pan");
 	}
 }

@@ -11,10 +11,15 @@ namespace TwoTune {
 	void Channel::Reset() {
 		FMODChannel = nullptr;
 		Pan = 0;
-		Pitch = 0;
+		Pitch = 1;
 		Volume = 1;
 		HasChanged = false;
 		AudioName = "";
 		PlayNewAudio = false;
+
+		PauseChanged = false;
+		IsPaused = false;
+
+		ShouldStop = false;
 	}
 }

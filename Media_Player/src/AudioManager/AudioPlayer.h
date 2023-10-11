@@ -12,10 +12,9 @@ namespace TwoTune {
 		AudioPlayer(FMOD::System* system);
 		~AudioPlayer();
 
-		void Play(FMOD::Sound* sound, Channel* channel, FMOD::ChannelGroup* group = 0, bool paused = false);
+		void Play(FMOD::Sound* sound, Channel* channel, FMOD::ChannelGroup* group = 0);
 		void Stop(Channel* channel);
-		void Pause(Channel* channel);
-		void UnPause(Channel* channel);
+		void SetPaused(Channel* channel);
 	};
 }
 
