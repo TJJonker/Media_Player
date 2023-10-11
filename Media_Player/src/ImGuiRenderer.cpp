@@ -5,26 +5,38 @@
 #include <vendor/DearImGUI/imgui_impl_opengl3.h>
 #include <vendor/DearImGUI/imgui_internal.h>
 
+/// <summary>
+/// ImGuiRender constructor.
+/// </summary>
+/// <param name="window">Reference to the GLFWWindow to draw on.</param>
 ImGuiRenderer::ImGuiRenderer(GLFWwindow* window)
 {
 	Initialize(window);
 }
 
+/// <summary>
+/// ImGuiRenderer destructor.
+/// </summary>
 ImGuiRenderer::~ImGuiRenderer()
 {
 	Destroy();
 }
 
+/// <summary>
+/// Renders the ImGui GUI.
+/// </summary>
 void ImGuiRenderer::Render()
 {
 	Begin();
 
+	// Creates a docking space in the viewport.
 	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
 	static const char* dockName = "Dock";
-	static bool thing = true;
-	if(thing){
-		thing = false;
+	static bool firsTime = true;
+	// Creates a docked layout.
+	if(firsTime){
+		firsTime = false;
 		ImGuiID dockspace_id = ImGui::GetID(dockName); 
 		ImGuiViewport* viewport = ImGui::GetMainViewport(); 
 
@@ -36,14 +48,15 @@ void ImGuiRenderer::Render()
 		ImGuiID dock_left = ImGui::DockBuilderSplitNode(dock_main, ImGuiDir_Left, 0.25f, NULL, &dock_main);
 		ImGuiID dock_bottom = ImGui::DockBuilderSplitNode(dock_main, ImGuiDir_Down, 0.4f, NULL, &dock_main);
 
-		ImGui::DockBuilderDockWindow("Left", dock_left); 
-		ImGui::DockBuilderDockWindow("Main", dock_main);
-		ImGui::DockBuilderDockWindow("Bottom", dock_bottom);
+		ImGui::DockBuilderDockWindow("Audio", dock_left); 
+		ImGui::DockBuilderDockWindow("Player", dock_main);
+		ImGui::DockBuilderDockWindow("Manipulator", dock_bottom);
 	}
 
 	static bool open = true;
 
-	if (ImGui::Begin("Left", &open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize)) {
+	// Creates the left sidebar, containing the audio files in the AudioLibrary.
+	if (ImGui::Begin("Audio", &open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize)) {
 		for (unsigned int i = 0; i < m_ListOfAudioNames->size(); i++) {
 			if (ImGui::Button((*m_ListOfAudioNames)[i])) {
 				m_Channel->AudioName = (*m_ListOfAudioNames)[i];
@@ -54,13 +67,20 @@ void ImGuiRenderer::Render()
 		ImGui::End();
 	}
 
-	if (ImGui::Begin("Main", &open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize)) {
+	// Creates the middle top menu, containing the audio player.
+	if (ImGui::Begin("Player", &open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize)) {
 
 		ImGui::Dummy(ImVec2(0, 50));
 		const char* audioName = m_Channel->AudioName == "" ? "- Select an audiofile -" : m_Channel->AudioName;
 		ImVec2 textSize = ImGui::CalcTextSize(audioName);
 		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (ImGui::GetContentRegionAvail().x - textSize.x) * 0.5f); // Center vertically
 		ImGui::Text(audioName);
+
+
+		const char* playingStopped = !m_Channel->IsPlaying() ? "Stopped" : "Playing...";
+		textSize = ImGui::CalcTextSize(playingStopped);
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (ImGui::GetContentRegionAvail().x - textSize.x) * 0.5f); // Center vertically
+		ImGui::Text(playingStopped);
 		ImGui::Dummy(ImVec2(0, 100));
 
 		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (ImGui::GetContentRegionAvail().x - 350) * 0.5f); // Center vertically
@@ -81,7 +101,8 @@ void ImGuiRenderer::Render()
 		ImGui::End();
 	}
 	
-	if (ImGui::Begin("Bottom", &open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize)) {
+	// Creates the middle bottom menu, containing the audio manipulation options.
+	if (ImGui::Begin("Manipulator", &open, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize)) {
 		if (ImGui::BeginTable("Manipulation", 2)) {
 			ImGui::TableNextRow(); 
 			ImGui::TableNextColumn();
@@ -112,6 +133,10 @@ void ImGuiRenderer::Render()
 	End();
 }
 
+/// <summary>
+/// Initializes ImGUi.
+/// </summary>
+/// <param name="window">Reference to the GLFW window.</param>
 void ImGuiRenderer::Initialize(GLFWwindow* window)
 {
     // Initialize ImGUI
@@ -125,6 +150,9 @@ void ImGuiRenderer::Initialize(GLFWwindow* window)
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 }
 
+/// <summary>
+/// Destroys the ImGUi context.
+/// </summary>
 void ImGuiRenderer::Destroy()
 {
 	// Deletes all ImGUI instances
@@ -133,6 +161,9 @@ void ImGuiRenderer::Destroy()
 	ImGui::DestroyContext();
 }
 
+/// <summary>
+/// Prepares ImGui for drawing a new frame.
+/// </summary>
 void ImGuiRenderer::Begin()
 {
 	// Tell OpenGL a new frame is about to begin
@@ -141,8 +172,11 @@ void ImGuiRenderer::Begin()
 	ImGui::NewFrame();
 }
 
+/// <summary>
+/// Finsishes the ImGui drawing process and renders to the screen.
+/// </summary>
 void ImGuiRenderer::End()
-{	// Renders the ImGUI elements
+{	
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }

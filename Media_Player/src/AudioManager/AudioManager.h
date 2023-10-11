@@ -3,6 +3,9 @@
 
 namespace TwoTune {
 
+	/// <summary>
+	/// Class responsible for initializing and configuring the FMOD System.
+	/// </summary>
 	class AudioManager
 	{
 	public:

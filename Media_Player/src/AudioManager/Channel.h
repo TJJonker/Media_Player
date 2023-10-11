@@ -4,6 +4,9 @@
 
 namespace TwoTune {
 	
+	/// <summary>
+	/// Struct containing channel properties and change states.
+	/// </summary>
 	struct Channel : public PoolObject
 	{
 	public:
@@ -23,6 +26,8 @@ namespace TwoTune {
 
 		Channel();
 		~Channel();
+
+		bool IsPlaying();
 
 		void Reset() override;
 	};

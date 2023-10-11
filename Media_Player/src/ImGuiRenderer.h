@@ -2,6 +2,9 @@
 #include<GLFW/glfw3.h>
 #include <AudioManager/Channel.h>
 
+/// <summary>
+/// Class containing ImGui logic and visualisation.
+/// </summary>
 class ImGuiRenderer
 {
 public:

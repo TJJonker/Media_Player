@@ -3,6 +3,9 @@
 
 namespace TwoTune {
 
+	/// <summary>
+	/// Class responsible for manipulating channel/audio properties.
+	/// </summary>
 	class AudioManipulator
 	{
 	public:

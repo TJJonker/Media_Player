@@ -3,6 +3,9 @@
 
 namespace TwoTune {
 
+	/// <summary>
+	/// Class responsible for playing, pausing and stopping the audio.
+	/// </summary>
 	class AudioPlayer
 	{
 	private:
