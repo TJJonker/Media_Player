@@ -23,3 +23,24 @@ All the code written for this project can be found in the [src folder](Media_Pla
 - **vendor**: Containing the DearImGui source files.
 
 All the audio files can be found in the [resources folder](Media_Player/Resources) and the used external libraries in the [vendor folder](Media_Player/vendor).
+
+
+### How does it work?
+Initialization of all the modules is done in [Main](Media_Player/src/Main.cpp). 
+- The AudioManager will create an FMOD system with the given amount of channels.
+- The AudioLibrary is responsible for loading and removing audio files in and out of memory respectively.
+- The AudioPlayer is responsible for playing, pausing, and stopping audio files and channels.
+- The AudioManipulator is responsible for adjusting a channel's pitch, pan, and volume.
+- A Channel is the base of audio playback. This struct will keep track of settings and apply these settings to all the audio files played with that particular channel.
+
+After the initialization, all the audio files are loaded into memory with the help of the audio library. 
+
+Just before the GLFW window loop, the ImGui rendering class is initialized and provided with the necessary data. Inside the ImGuiRenderer class, we're drawing a hardcoded GUI, making changes to the Channel, and reading from a list of audio names that is provided by the audio library.
+
+Inside the GLFW window loop, we're checking if there are changes inside the channel struct and applying the forwarding the changes to the designated TwoTune module.
+
+
+### Evaluation
+I think the TwoTune API worked out decent. The GUI is what messed up a big part of the codebase. I wanted (and should have) abstracted the GUI into separate files, added an Event system, and ultimately added a small layer structure to keep things really clean. Same for the GLFW/GLAD Window part. This could've been extracted and abstracted, but I don't think reworking this would've been worth it, as this still is a Hello World project.
+
+All in all, I'm happy with the result and I'll take everything I've learned with me to future projects.
