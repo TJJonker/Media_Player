@@ -22,7 +22,10 @@ private:
 	void Begin();
 	void End();
 
+	// List of audio names, retrieved from the AudioLibrary.
 	std::shared_ptr<std::vector<const char*>> m_ListOfAudioNames;
+
+	// Reference to the TwoTune channel to properly play around with the audio files / sound.
 	TwoTune::Channel* m_Channel;
 };
 

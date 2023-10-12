@@ -13,8 +13,11 @@ namespace TwoTune {
 		static_assert(std::is_base_of<PoolObject, T>::value, "T must be derived from PoolObject");
 
 	private:
+		// List of all objects.
 		std::vector<T*> m_Pool;
+		// List of active objects, referenced to m_Pool.
 		std::vector<unsigned int> m_ActivePool;
+		// Queue of active objects, referenced to m_Pool.
 		std::queue<unsigned int> m_PassivePool;
 
 	public:

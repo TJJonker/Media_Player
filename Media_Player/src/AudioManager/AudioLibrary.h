@@ -11,7 +11,10 @@ namespace TwoTune {
 	class AudioLibrary
 	{
 	private:
+		// Reference to the FMOD system
 		FMOD::System* m_System;
+
+		// Map functioning as the Audio Library
 		std::map<const char*, FMOD::Sound*> m_AudioLibrary;
 
 	public:

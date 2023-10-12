@@ -10,7 +10,7 @@ namespace TwoTune {
 	/// <param name="flags">Initialisation flags for initalising the system.</param>
 	/// <param name="extraDriverData">Extra driver data.</param>
 	AudioManager::AudioManager(unsigned int maxChannels, FMOD_INITFLAGS flags, void* extraDriverData)
-		: m_System(nullptr), m_Initialized(false), m_MaxChannels(maxChannels)
+		: m_System(nullptr), m_MaxChannels(maxChannels)
 	{
 		Initialize(maxChannels, flags, extraDriverData);
 	}

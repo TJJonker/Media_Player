@@ -9,6 +9,7 @@ namespace TwoTune {
 	class AudioPlayer
 	{
 	private:
+		// Reference to the FMOD system
 		FMOD::System* m_System;
 
 	public:
